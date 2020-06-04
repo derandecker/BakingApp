@@ -3,6 +3,7 @@ package com.derandecker.bakingapp.database;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
@@ -17,17 +18,21 @@ import java.util.List;
 @Dao
 public interface RecipeDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertRecipeNamesAndServings(List<Recipe> recipes);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertIngredients(List<Ingredients> ingredients);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertSteps(List<Steps> steps);
 
-    @Query("SELECT name AND servings FROM recipes")
-    LiveData<List<Recipe>> loadRecipeNamesAndServings();
+    //testing purposes
+    @Query("SELECT * FROM recipes WHERE recipeId = :id")
+    Recipe loadRecipeById(int id);
+//
+//    @Query("SELECT recipeId AND name AND servings FROM recipes")
+//    LiveData<List<Recipe>> loadRecipeNamesAndServings();
 
     @Transaction
     @Query("SELECT * FROM recipes WHERE recipeId = :id")

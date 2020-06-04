@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 
+import com.derandecker.bakingapp.database.AppDatabase;
 import com.derandecker.bakingapp.model.Recipe;
 import com.derandecker.bakingapp.utils.AppExecutors;
 import com.derandecker.bakingapp.utils.JSONUtils;
@@ -49,6 +50,7 @@ public class ItemListActivity extends AppCompatActivity {
      */
     private boolean mTwoPane;
     private URL recipesUrl;
+    AppDatabase database;
 
     {
         try {
@@ -84,6 +86,8 @@ public class ItemListActivity extends AppCompatActivity {
             mTwoPane = true;
         }
 
+        database = AppDatabase.getInstance(getApplicationContext());
+
         downloadRecipes();
 
         View recyclerView = findViewById(R.id.item_list);
@@ -105,12 +109,11 @@ public class ItemListActivity extends AppCompatActivity {
                         return;
                     }
                     List<Recipe> recipes = JSONUtils.parseRecipesJson(recipeString);
-                    int servings = recipes.get(0).getServings();
-                    String servingsString = Integer.toString(servings);
-                    Log.d("RECIPES", recipes.get(0).getName());
-                    Log.d("RECIPES", recipes.get(1).getName());
-                    Log.d("RECIPES", recipes.get(2).getName());
-                    Log.d("RECIPES", servingsString);
+                    database.RecipeDao().insertRecipeNamesAndServings(recipes);
+                    //testing purposes
+                    Recipe recipeFromDb = database.RecipeDao().loadRecipeById(2);
+                    Log.d("RECIPES", recipeFromDb.getName());
+
                 } catch (IOException | JSONException e) {
                     e.printStackTrace();
                 }

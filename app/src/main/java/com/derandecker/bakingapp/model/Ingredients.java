@@ -4,7 +4,7 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(tableName = "ingredients")
 public class Ingredients {
     @PrimaryKey
     public int ingredientsId;
