@@ -6,9 +6,11 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
+import com.derandecker.bakingapp.model.Ingredients;
 import com.derandecker.bakingapp.model.Recipe;
 import com.derandecker.bakingapp.model.RecipeWithIngredients;
 import com.derandecker.bakingapp.model.RecipeWithSteps;
+import com.derandecker.bakingapp.model.Steps;
 
 import java.util.List;
 
@@ -16,7 +18,13 @@ import java.util.List;
 public interface RecipeDao {
 
     @Insert
-    void insertRecipes(List<Recipe> recipes);
+    void insertRecipeNamesAndServings(List<Recipe> recipes);
+
+    @Insert
+    void insertIngredients(List<Ingredients> ingredients);
+
+    @Insert
+    void insertSteps(List<Steps> steps);
 
     @Query("SELECT name AND servings FROM recipes")
     LiveData<List<Recipe>> loadRecipeNamesAndServings();
