@@ -2,6 +2,8 @@ package com.derandecker.bakingapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,9 +11,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 
+import com.derandecker.bakingapp.model.Recipe;
+import com.derandecker.bakingapp.utils.AppExecutors;
+import com.derandecker.bakingapp.utils.JSONUtils;
+import com.derandecker.bakingapp.utils.NetworkUtils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +26,11 @@ import android.widget.TextView;
 
 import com.derandecker.bakingapp.dummy.DummyContent;
 
+import org.json.JSONException;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 /**
@@ -36,6 +48,15 @@ public class ItemListActivity extends AppCompatActivity {
      * device.
      */
     private boolean mTwoPane;
+    private URL recipesUrl;
+
+    {
+        try {
+            recipesUrl = new URL("https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/baking.json");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,9 +84,44 @@ public class ItemListActivity extends AppCompatActivity {
             mTwoPane = true;
         }
 
+        downloadRecipes();
+
         View recyclerView = findViewById(R.id.item_list);
         assert recyclerView !=null;
         setupRecyclerView((RecyclerView) recyclerView);
+
+
+
+    }
+
+    private void downloadRecipes() {
+        AppExecutors.getInstance().networkIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    String recipeString;
+                    if (isOnline()) {
+                        recipeString = NetworkUtils.getResponseFromHttpUrl(recipesUrl);
+                    } else {
+                        return;
+                    }
+                    List<Recipe> recipes = JSONUtils.parseRecipesJson(recipeString);
+                    Log.d("RECIPES", recipes.get(0).getName());
+                    Log.d("RECIPES", recipes.get(1).getName());
+                    Log.d("RECIPES", recipes.get(2).getName());
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        });
+    }
+
+    private boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {

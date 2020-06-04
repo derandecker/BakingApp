@@ -20,6 +20,14 @@ public class Recipe {
         this.name = name;
     }
 
+    public String getName(){
+        return name;
+    }
+
+    public int getId(){
+        return id;
+    }
+
 
     public class Ingredients {
 
