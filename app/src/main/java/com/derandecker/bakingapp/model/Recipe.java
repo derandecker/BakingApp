@@ -9,15 +9,17 @@ public class Recipe {
     @PrimaryKey
     public int recipeId;
     public String name;
+    public int servings;
 
 
     @Ignore
     public Recipe() {
     }
 
-    public Recipe(int id, String name) {
+    public Recipe(int id, String name, int servings) {
         this.recipeId = id;
         this.name = name;
+        this.servings = servings;
     }
 
     public String getName() {
@@ -26,6 +28,10 @@ public class Recipe {
 
     public int getId() {
         return recipeId;
+    }
+
+    public int getServings(){
+        return servings;
     }
 }
 

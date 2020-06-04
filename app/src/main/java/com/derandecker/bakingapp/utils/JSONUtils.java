@@ -21,8 +21,9 @@ public class JSONUtils {
             JSONObject recipe = recipesJson.getJSONObject(i);
             int id = recipe.getInt("id");
             String name = recipe.getString("name");
+            int servings = recipe.getInt("servings");
 
-            currentRecipe = new Recipe(id, name);
+            currentRecipe = new Recipe(id, name, servings);
             recipes.add(currentRecipe);
         }
         return recipes;

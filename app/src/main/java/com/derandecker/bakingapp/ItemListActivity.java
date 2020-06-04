@@ -87,9 +87,8 @@ public class ItemListActivity extends AppCompatActivity {
         downloadRecipes();
 
         View recyclerView = findViewById(R.id.item_list);
-        assert recyclerView !=null;
+        assert recyclerView != null;
         setupRecyclerView((RecyclerView) recyclerView);
-
 
 
     }
@@ -106,9 +105,12 @@ public class ItemListActivity extends AppCompatActivity {
                         return;
                     }
                     List<Recipe> recipes = JSONUtils.parseRecipesJson(recipeString);
+                    int servings = recipes.get(0).getServings();
+                    String servingsString = Integer.toString(servings);
                     Log.d("RECIPES", recipes.get(0).getName());
                     Log.d("RECIPES", recipes.get(1).getName());
                     Log.d("RECIPES", recipes.get(2).getName());
+                    Log.d("RECIPES", servingsString);
                 } catch (IOException | JSONException e) {
                     e.printStackTrace();
                 }
