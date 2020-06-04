@@ -22,6 +22,6 @@ public interface RecipeDao {
 
     @Transaction
     @Query("SELECT * FROM recipes WHERE recipeId = :id")
-    public LiveData<List<RecipeWithIngredients>> loadRecipeIngredients(int id);
+    LiveData<List<RecipeWithIngredients>> loadRecipeIngredients(int id);
 
 }
