@@ -8,6 +8,7 @@ import androidx.room.Transaction;
 
 import com.derandecker.bakingapp.model.Recipe;
 import com.derandecker.bakingapp.model.RecipeWithIngredients;
+import com.derandecker.bakingapp.model.RecipeWithSteps;
 
 import java.util.List;
 
@@ -23,5 +24,10 @@ public interface RecipeDao {
     @Transaction
     @Query("SELECT * FROM recipes WHERE recipeId = :id")
     LiveData<List<RecipeWithIngredients>> loadRecipeIngredients(int id);
+
+    @Transaction
+    @Query("SELECT * FROM recipes WHERE recipeId = :id")
+    LiveData<List<RecipeWithSteps>> loadRecipeSteps(int id);
+
 
 }

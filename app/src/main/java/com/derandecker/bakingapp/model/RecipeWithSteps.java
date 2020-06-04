@@ -9,7 +9,7 @@ public class RecipeWithSteps {
     @Embedded public Recipe recipe;
     @Relation(
             parentColumn = "recipeId",
-            entityColumn = "ingredientsId"
+            entityColumn = "stepId"
     )
     public List<Steps> steps;
 }
