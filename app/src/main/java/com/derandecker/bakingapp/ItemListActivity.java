@@ -130,9 +130,15 @@ public class ItemListActivity extends AppCompatActivity {
                     Log.d("RECIPE step URL", stepsFromDb.steps.get(2).videoUrl);
 
 //                    Log.d("RECIPE ingred size", String.valueOf(ingredientsFromDb.ingredients.size()));
-                    /* TODO
+                    /*TODO
+                    -- Setup LiveData
+                    -- Clean up RecipeDao
+                    -- Show fragment with Recipe listing when app opens
 
-                    6. Save recipes JSON string to local storage in some way so the server
+
+                    -- Make sure fragment works properly for bigger screens
+
+                    -- Save recipes JSON string to local storage in some way so the server
                         isn't queried every time we need to reference the json string
                      */
 
