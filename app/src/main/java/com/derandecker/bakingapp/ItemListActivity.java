@@ -112,17 +112,17 @@ public class ItemListActivity extends AppCompatActivity {
                     }
                     List<Recipe> recipes = JSONUtils.parseRecipesJson(recipeString);
                     database.RecipeDao().insertRecipeNamesAndServings(recipes);
-                    List<Ingredients> ingredients = JSONUtils.parseIngredientsJson(recipeString, 1);
+                    List<Ingredients> ingredients = JSONUtils.parseIngredientsJson(recipeString, 3);
+                    Log.d("string valof quantity", ingredients.get(3).quantity);
                     database.RecipeDao().insertIngredients(ingredients);
-                    //testing purposes
-//                    Recipe recipeFromDb = database.RecipeDao().loadRecipeById(1);
-                    RecipeWithIngredients ingredientsFromDb = database.RecipeDao().loadRecipeIngredients(1);
 
-//                    Log.d("RECIPES", recipeFromDb.getName());
+                    RecipeWithIngredients ingredientsFromDb = database.RecipeDao().loadRecipeIngredients(3);
                     Log.d("RECIPE NAME", ingredientsFromDb.recipe.getName());
                     Log.d("RECIPE INGRED 0", ingredientsFromDb.ingredients.get(1).ingredient);
-                    Log.d("RECIPE quantity 0", String.valueOf(ingredientsFromDb.ingredients.get(1).quantity));
+                    Log.d("RECIPE quantity 0", ingredientsFromDb.ingredients.get(1).quantity);
                     Log.d("RECIPE measure 0", ingredientsFromDb.ingredients.get(1).measure);
+
+//                    Log.d("RECIPE ingred size", String.valueOf(ingredientsFromDb.ingredients.size()));
 
                     /* TODO
                     make sure app database works properly with ingredients and steps:
@@ -139,6 +139,7 @@ public class ItemListActivity extends AppCompatActivity {
                 } catch (IOException | JSONException e) {
                     e.printStackTrace();
                 }
+
             }
 
         });

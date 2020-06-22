@@ -10,8 +10,11 @@ import java.util.List;
 public class RecipeWithIngredients {
     @Embedded public Recipe recipe;
     @Relation(
+            //parentColumn is in Recipe.class
             parentColumn = "recipeId",
-            entityColumn = "ingredientsId"
+            //entityColumn is in Ingredients.class
+            entityColumn = "recipeId",
+            entity = Ingredients.class
     )
     public List<Ingredients> ingredients;
 

@@ -21,7 +21,7 @@ public interface RecipeDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertRecipeNamesAndServings(List<Recipe> recipes);
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert
     void insertIngredients(List<Ingredients> ingredients);
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)

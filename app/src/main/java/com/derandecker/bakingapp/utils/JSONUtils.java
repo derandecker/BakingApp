@@ -45,7 +45,7 @@ public class JSONUtils {
 
         for (int i = 0; i < ingredientsArray.length(); i++){
             JSONObject ingredient = ingredientsArray.getJSONObject(i);
-            int quantity = ingredient.getInt("quantity");
+            String quantity = String.valueOf(ingredient.getDouble("quantity"));
             String measure = ingredient.getString("measure");
             String name = ingredient.getString("ingredient");
 

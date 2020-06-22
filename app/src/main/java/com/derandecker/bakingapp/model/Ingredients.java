@@ -9,7 +9,7 @@ public class Ingredients {
     @PrimaryKey(autoGenerate = true)
     public int ingredientsId;
     public int recipeId;
-    public int quantity;
+    public String quantity;
     public String measure;
     public String ingredient;
 
@@ -17,7 +17,7 @@ public class Ingredients {
     public Ingredients() {
     }
 
-    public Ingredients(int ingredientsId, int recipeId, int quantity,
+    public Ingredients(int ingredientsId, int recipeId, String quantity,
                        String measure, String ingredient) {
         this.ingredientsId = ingredientsId;
         this.recipeId = recipeId;
@@ -27,7 +27,8 @@ public class Ingredients {
     }
 
     @Ignore
-    public Ingredients(int recipeId, int quantity, String measure, String ingredient){
+    public Ingredients(int recipeId, String quantity, String measure,
+                       String ingredient){
         this.recipeId = recipeId;
         this.quantity = quantity;
         this.measure = measure;
