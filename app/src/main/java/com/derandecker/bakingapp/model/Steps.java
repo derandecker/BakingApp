@@ -14,29 +14,29 @@ public class Steps {
     public int stepNumber;
     public String shortDescription;
     public String description;
-    public String videoURL;
+    public String videoUrl;
 
     @Ignore
     public Steps(){
     }
 
     public Steps(int stepId, int recipeId, int stepNumber, String shortDescription,
-                 String description, String videoURL){
+                 String description, String videoUrl){
         this.stepId = stepId;
         this.recipeId = recipeId;
         this.stepNumber = stepNumber;
         this.shortDescription = shortDescription;
         this.description = description;
-        this.videoURL = videoURL;
+        this.videoUrl = videoUrl;
     }
 
     @Ignore
     public Steps(int recipeId, int stepNumber, String shortDescription,
-                 String description, String videoURL){
+                 String description, String videoUrl){
         this.recipeId = recipeId;
         this.stepNumber = stepNumber;
         this.shortDescription = shortDescription;
         this.description = description;
-        this.videoURL = videoURL;
+        this.videoUrl = videoUrl;
     }
 }

@@ -15,12 +15,15 @@ import com.derandecker.bakingapp.database.AppDatabase;
 import com.derandecker.bakingapp.model.Ingredients;
 import com.derandecker.bakingapp.model.Recipe;
 import com.derandecker.bakingapp.model.RecipeWithIngredients;
+import com.derandecker.bakingapp.model.RecipeWithSteps;
+import com.derandecker.bakingapp.model.Steps;
 import com.derandecker.bakingapp.utils.AppExecutors;
 import com.derandecker.bakingapp.utils.JSONUtils;
 import com.derandecker.bakingapp.utils.NetworkUtils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import android.util.JsonReader;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -113,14 +116,21 @@ public class ItemListActivity extends AppCompatActivity {
                     List<Recipe> recipes = JSONUtils.parseRecipesJson(recipeString);
                     database.RecipeDao().insertRecipeNamesAndServings(recipes);
                     List<Ingredients> ingredients = JSONUtils.parseIngredientsJson(recipeString, 3);
-                    Log.d("string valof quantity", ingredients.get(3).quantity);
                     database.RecipeDao().insertIngredients(ingredients);
 
                     RecipeWithIngredients ingredientsFromDb = database.RecipeDao().loadRecipeIngredients(3);
                     Log.d("RECIPE NAME", ingredientsFromDb.recipe.getName());
-                    Log.d("RECIPE INGRED 0", ingredientsFromDb.ingredients.get(1).ingredient);
-                    Log.d("RECIPE quantity 0", ingredientsFromDb.ingredients.get(1).quantity);
-                    Log.d("RECIPE measure 0", ingredientsFromDb.ingredients.get(1).measure);
+                    Log.d("RECIPE INGRED", ingredientsFromDb.ingredients.get(2).ingredient);
+                    Log.d("RECIPE quantity", ingredientsFromDb.ingredients.get(2).quantity);
+                    Log.d("RECIPE measure", ingredientsFromDb.ingredients.get(2).measure);
+
+                    List<Steps> steps = JSONUtils.parseStepsJson(recipeString, 3);
+                    database.RecipeDao().insertSteps(steps);
+                    RecipeWithSteps stepsFromDb = database.RecipeDao().loadRecipeSteps(3);
+                    Log.d("RECIPE step id", String.valueOf(stepsFromDb.steps.get(2).stepNumber));
+                    Log.d("RECIPE step shortD", stepsFromDb.steps.get(2).shortDescription);
+                    Log.d("RECIPE step descr", stepsFromDb.steps.get(2).description);
+                    Log.d("RECIPE step URL", stepsFromDb.steps.get(2).videoUrl);
 
 //                    Log.d("RECIPE ingred size", String.valueOf(ingredientsFromDb.ingredients.size()));
 
