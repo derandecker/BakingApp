@@ -66,12 +66,12 @@ public class JSONUtils {
 
         for (int i = 0; i < stepsArray.length(); i++) {
             JSONObject ingredient = stepsArray.getJSONObject(i);
-            int stepId = ingredient.getInt("id");
+            int stepNumber = ingredient.getInt("id");
             String shortDescription = ingredient.getString("shortDescription");
             String description = ingredient.getString("description");
             String url = ingredient.getString("videoURL");
 
-            currentStep = new Steps(stepId, recipeId, shortDescription, description, url);
+            currentStep = new Steps(recipeId, stepNumber, shortDescription, description, url);
             steps.add(currentStep);
         }
         return steps;
