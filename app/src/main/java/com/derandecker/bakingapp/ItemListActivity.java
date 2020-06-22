@@ -114,6 +114,20 @@ public class ItemListActivity extends AppCompatActivity {
                     Recipe recipeFromDb = database.RecipeDao().loadRecipeById(2);
                     Log.d("RECIPES", recipeFromDb.getName());
 
+                    /* TODO
+                    make sure app database works properly with ingredients and steps:
+                    1. add JSONUtils to parse Ingredients for chosen recipe (will pass recipeId
+                        so it's added to database correctly)
+                    2. add JSONUtils to parse Steps for chosen recipe (pass recipeId)
+                    3. for testing, do database.RecipeDao().insertIngredients(ingredients); then
+                    4. use Log.d to print first ingredient from the recipe and its measure
+                    5. do the same for Steps
+
+                    6. Save recipes JSON string to local storage in some way so the server
+                        isn't queried every time we need to reference the json string
+                     */
+
+
                 } catch (IOException | JSONException e) {
                     e.printStackTrace();
                 }

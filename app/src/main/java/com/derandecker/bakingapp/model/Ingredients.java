@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "ingredients")
 public class Ingredients {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     public int ingredientsId;
     public int recipeId;
     public int quantity;
@@ -20,6 +20,14 @@ public class Ingredients {
     public Ingredients(int ingredientsId, int recipeId, int quantity,
                        String measure, String ingredient) {
         this.ingredientsId = ingredientsId;
+        this.recipeId = recipeId;
+        this.quantity = quantity;
+        this.measure = measure;
+        this.ingredient = ingredient;
+    }
+
+    @Ignore
+    public Ingredients(int recipeId, int quantity, String measure, String ingredient){
         this.recipeId = recipeId;
         this.quantity = quantity;
         this.measure = measure;
