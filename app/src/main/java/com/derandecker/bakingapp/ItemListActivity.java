@@ -127,11 +127,6 @@ public class ItemListActivity extends AppCompatActivity {
 //                    Log.d("RECIPE ingred size", String.valueOf(ingredientsFromDb.ingredients.size()));
 
                     /* TODO
-                    make sure app database works properly with ingredients and steps:
-
-                    3. for testing, do database.RecipeDao().insertIngredients(ingredients); then
-                    4. use Log.d to print first ingredient from the recipe and its measure
-                    5. do the same for Steps
 
                     6. Save recipes JSON string to local storage in some way so the server
                         isn't queried every time we need to reference the json string
