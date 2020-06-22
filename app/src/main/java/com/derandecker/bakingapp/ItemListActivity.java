@@ -87,6 +87,7 @@ public class ItemListActivity extends AppCompatActivity {
 
         downloadRecipes();
 
+
         View recyclerView = findViewById(R.id.item_list);
         assert recyclerView != null;
         setupRecyclerView((RecyclerView) recyclerView);
@@ -125,7 +126,6 @@ public class ItemListActivity extends AppCompatActivity {
                     Log.d("RECIPE step URL", stepsFromDb.steps.get(2).videoUrl);
 
 //                    Log.d("RECIPE ingred size", String.valueOf(ingredientsFromDb.ingredients.size()));
-
                     /* TODO
 
                     6. Save recipes JSON string to local storage in some way so the server
@@ -136,10 +136,10 @@ public class ItemListActivity extends AppCompatActivity {
                 } catch (IOException | JSONException e) {
                     e.printStackTrace();
                 }
-
             }
 
         });
+
     }
 
     private boolean isOnline() {
@@ -150,14 +150,13 @@ public class ItemListActivity extends AppCompatActivity {
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, DummyContent.ITEMS, mTwoPane));
+        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, mTwoPane));
     }
 
     public static class SimpleItemRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
         private final ItemListActivity mParentActivity;
-        private final List<DummyContent.DummyItem> mValues;
         private final boolean mTwoPane;
         private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
             @Override
@@ -182,9 +181,7 @@ public class ItemListActivity extends AppCompatActivity {
         };
 
         SimpleItemRecyclerViewAdapter(ItemListActivity parent,
-                                      List<DummyContent.DummyItem> items,
                                       boolean twoPane) {
-            mValues = items;
             mParentActivity = parent;
             mTwoPane = twoPane;
         }
@@ -198,15 +195,15 @@ public class ItemListActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
-            holder.mContentView.setText(mValues.get(position).content);
+//            holder.mContentView.setText(mValues.get(position).name);
 
-            holder.itemView.setTag(mValues.get(position));
+//            holder.itemView.setTag(mValues.get(position));
             holder.itemView.setOnClickListener(mOnClickListener);
         }
 
         @Override
         public int getItemCount() {
-            return mValues.size();
+            return 0;
         }
 
         class ViewHolder extends RecyclerView.ViewHolder {
