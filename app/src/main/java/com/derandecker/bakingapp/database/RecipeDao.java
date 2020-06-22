@@ -36,11 +36,12 @@ public interface RecipeDao {
 
     @Transaction
     @Query("SELECT * FROM recipes WHERE recipeId = :id")
-    LiveData<List<RecipeWithIngredients>> loadRecipeIngredients(int id);
+//    LiveData<List<RecipeWithIngredients>> loadRecipeIngredients(int id);
+    RecipeWithIngredients loadRecipeIngredients(int id);
 
     @Transaction
     @Query("SELECT * FROM recipes WHERE recipeId = :id")
-    LiveData<List<RecipeWithSteps>> loadRecipeSteps(int id);
-
+//    LiveData<List<RecipeWithSteps>> loadRecipeSteps(int id);
+    RecipeWithSteps loadRecipeSteps(int id);
 
 }

@@ -12,7 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 
 import com.derandecker.bakingapp.database.AppDatabase;
+import com.derandecker.bakingapp.model.Ingredients;
 import com.derandecker.bakingapp.model.Recipe;
+import com.derandecker.bakingapp.model.RecipeWithIngredients;
 import com.derandecker.bakingapp.utils.AppExecutors;
 import com.derandecker.bakingapp.utils.JSONUtils;
 import com.derandecker.bakingapp.utils.NetworkUtils;
@@ -110,15 +112,21 @@ public class ItemListActivity extends AppCompatActivity {
                     }
                     List<Recipe> recipes = JSONUtils.parseRecipesJson(recipeString);
                     database.RecipeDao().insertRecipeNamesAndServings(recipes);
+                    List<Ingredients> ingredients = JSONUtils.parseIngredientsJson(recipeString, 1);
+                    database.RecipeDao().insertIngredients(ingredients);
                     //testing purposes
-                    Recipe recipeFromDb = database.RecipeDao().loadRecipeById(2);
-                    Log.d("RECIPES", recipeFromDb.getName());
+//                    Recipe recipeFromDb = database.RecipeDao().loadRecipeById(1);
+                    RecipeWithIngredients ingredientsFromDb = database.RecipeDao().loadRecipeIngredients(1);
+
+//                    Log.d("RECIPES", recipeFromDb.getName());
+                    Log.d("RECIPE NAME", ingredientsFromDb.recipe.getName());
+                    Log.d("RECIPE INGRED 0", ingredientsFromDb.ingredients.get(1).ingredient);
+                    Log.d("RECIPE quantity 0", String.valueOf(ingredientsFromDb.ingredients.get(1).quantity));
+                    Log.d("RECIPE measure 0", ingredientsFromDb.ingredients.get(1).measure);
 
                     /* TODO
                     make sure app database works properly with ingredients and steps:
-                    1. add JSONUtils to parse Ingredients for chosen recipe (will pass recipeId
-                        so it's added to database correctly)
-                    2. add JSONUtils to parse Steps for chosen recipe (pass recipeId)
+
                     3. for testing, do database.RecipeDao().insertIngredients(ingredients); then
                     4. use Log.d to print first ingredient from the recipe and its measure
                     5. do the same for Steps
