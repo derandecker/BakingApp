@@ -89,11 +89,15 @@ public class ItemListActivity extends AppCompatActivity {
 
 
         View recyclerView = findViewById(R.id.item_list);
-        assert recyclerView != null;
         setupRecyclerView((RecyclerView) recyclerView);
 
 
     }
+
+    private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
+        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, mTwoPane));
+    }
+
 
     private void downloadRecipes() {
         AppExecutors.getInstance().networkIO().execute(new Runnable() {
@@ -149,70 +153,68 @@ public class ItemListActivity extends AppCompatActivity {
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
-    private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, mTwoPane));
-    }
 
-    public static class SimpleItemRecyclerViewAdapter
-            extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
-
-        private final ItemListActivity mParentActivity;
-        private final boolean mTwoPane;
-        private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DummyContent.DummyItem item = (DummyContent.DummyItem) view.getTag();
-                if (mTwoPane) {
-                    Bundle arguments = new Bundle();
-                    arguments.putString(ItemDetailFragment.ARG_ITEM_ID, item.id);
-                    ItemDetailFragment fragment = new ItemDetailFragment();
-                    fragment.setArguments(arguments);
-                    mParentActivity.getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.item_detail_container, fragment)
-                            .commit();
-                } else {
-                    Context context = view.getContext();
-                    Intent intent = new Intent(context, ItemDetailActivity.class);
-                    intent.putExtra(ItemDetailFragment.ARG_ITEM_ID, item.id);
-
-                    context.startActivity(intent);
-                }
-            }
-        };
-
-        SimpleItemRecyclerViewAdapter(ItemListActivity parent,
-                                      boolean twoPane) {
-            mParentActivity = parent;
-            mTwoPane = twoPane;
-        }
-
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_list_content, parent, false);
-            return new ViewHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(final ViewHolder holder, int position) {
-//            holder.mContentView.setText(mValues.get(position).name);
-
-//            holder.itemView.setTag(mValues.get(position));
-            holder.itemView.setOnClickListener(mOnClickListener);
-        }
-
-        @Override
-        public int getItemCount() {
-            return 0;
-        }
-
-        class ViewHolder extends RecyclerView.ViewHolder {
-            final TextView mContentView;
-
-            ViewHolder(View view) {
-                super(view);
-                mContentView = (TextView) view.findViewById(R.id.content);
-            }
-        }
-    }
+//
+//    public static class SimpleItemRecyclerViewAdapter
+//            extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
+//
+//        private final ItemListActivity mParentActivity;
+//        private final boolean mTwoPane;
+//        private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                DummyContent.DummyItem item = (DummyContent.DummyItem) view.getTag();
+//                if (mTwoPane) {
+//                    Bundle arguments = new Bundle();
+//                    arguments.putString(ItemDetailFragment.ARG_ITEM_ID, item.id);
+//                    ItemDetailFragment fragment = new ItemDetailFragment();
+//                    fragment.setArguments(arguments);
+//                    mParentActivity.getSupportFragmentManager().beginTransaction()
+//                            .replace(R.id.item_detail_container, fragment)
+//                            .commit();
+//                } else {
+//                    Context context = view.getContext();
+//                    Intent intent = new Intent(context, ItemDetailActivity.class);
+//                    intent.putExtra(ItemDetailFragment.ARG_ITEM_ID, item.id);
+//
+//                    context.startActivity(intent);
+//                }
+//            }
+//        };
+//
+//        SimpleItemRecyclerViewAdapter(ItemListActivity parent,
+//                                      boolean twoPane) {
+//            mParentActivity = parent;
+//            mTwoPane = twoPane;
+//        }
+//
+//        @Override
+//        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+//            View view = LayoutInflater.from(parent.getContext())
+//                    .inflate(R.layout.item_list_content, parent, false);
+//            return new ViewHolder(view);
+//        }
+//
+//        @Override
+//        public void onBindViewHolder(final ViewHolder holder, int position) {
+////            holder.mContentView.setText(mValues.get(position).name);
+//
+////            holder.itemView.setTag(mValues.get(position));
+//            holder.itemView.setOnClickListener(mOnClickListener);
+//        }
+//
+//        @Override
+//        public int getItemCount() {
+//            return 0;
+//        }
+//
+//        class ViewHolder extends RecyclerView.ViewHolder {
+//            final TextView mContentView;
+//
+//            ViewHolder(View view) {
+//                super(view);
+//                mContentView = (TextView) view.findViewById(R.id.content);
+//            }
+//        }
+//    }
 }
